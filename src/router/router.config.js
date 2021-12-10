@@ -13,6 +13,11 @@ const router = [
     path: '/user',
     name: 'User',
     component: 'shelf/User'
+  },
+  {
+    path: '/statistics/boxDetail',
+    name: 'BoxDetail',
+    component: 'shelf/BoxDetail'
   }
 ]
 

@@ -1,4 +1,4 @@
 import Vue from "vue"
-import ScrollView from "./widgets/ScrollView";
+import DetailPanel from "./widgets/DetailPanel";
 
-Vue.component('j-scroll', ScrollView)
+Vue.component('j-panel', DetailPanel)

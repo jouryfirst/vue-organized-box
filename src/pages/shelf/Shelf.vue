@@ -14,26 +14,20 @@
             <van-dropdown-item v-model="sortType" :options="sortOptions"></van-dropdown-item>
         </van-dropdown-menu>
         <div class="box-content">
-            <j-scroll
-                    class="box-shelf-scroll-viewer"
-                    :top="146"
-                    :bottom="scrollBottom"
-                    :initPosition="initPosition"
-                    @onScroll="onScroll"
-                    ref="scroll">
-                <box-content></box-content>
-            </j-scroll>
-
+            <box-content v-if="sortType !== 2"></box-content>
+            <not-classified v-else></not-classified>
         </div>
     </div>
 </template>
 
 <script>
     import BoxContent from "@/components/shelf/BoxContent";
+    import NotClassified from "@/components/shelf/NotClassified";
   export default {
     name: "Shelf",
     components: {
-      BoxContent
+      BoxContent,
+      NotClassified
     },
     data () {
       return {
@@ -81,7 +75,7 @@
 <style scoped lang="scss">
     .box-shelf-container {
         .box-content {
-            height: calc(100vh - 54px - 44px - 48px - 50px);
+            height: calc(100vh - 12rem);
         }
     }
 </style>

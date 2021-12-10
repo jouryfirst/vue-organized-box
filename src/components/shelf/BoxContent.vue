@@ -1,6 +1,11 @@
 <template>
     <div class="box-content-container is-flex">
-        <div class="box-wrapper" v-for="(item, index) in boxLists" :key="index">
+        <div
+                class="box-wrapper"
+                v-for="(item, index) in boxLists"
+                :key="index"
+                @click="showBoxDetail(item)"
+        >
             <div class="label">{{item.label}}</div>
             <div class="num overflow">
                 <span>{{item.count}}</span>
@@ -38,19 +43,37 @@
           }
         ]
       }
+    },
+    methods: {
+      showBoxDetail(item) {
+        this.$router.push({
+          name: 'BoxDetail',
+          query: {
+            boxName: item.label
+          }
+        })
+      }
     }
   }
 </script>
 
 <style scoped lang="scss">
     .box-content-container {
+        height: 100%;
+        background-color: #fff;
         flex-wrap: wrap;
+        align-content: flex-start;
         padding: 40px;
         .box-wrapper {
+            cursor: pointer;
+            user-select: none;
             width: 30%;
             text-align: center;
             height: 300px;
-            background-color: aliceblue;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px 2px rgba(0,0,0,0.1);
             &:nth-child(3n+1) {
                 margin: 0 2.5% 30px 0;
             }
