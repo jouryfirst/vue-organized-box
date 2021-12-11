@@ -12,6 +12,7 @@
     "babel-plugin-import": "^1.13.3",
     "core-js": "^3.6.5",
     "vant": "^2.12.36",
+    "mockjs": "^1.1.0",
     "vue": "^2.6.11",
     "vue-router": "^3.0.1"
   },

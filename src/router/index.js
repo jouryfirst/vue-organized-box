@@ -24,10 +24,11 @@ const processRouteObj = (basePath, { menuCode, children, component, meta, ...arg
 const rootRoutes = [
   {
     path: '/',
-    redirect: '/index'
+    redirect: '/shelf'
   },
   {
     path: '/shelf',
+    name: 'Shelf',
     component: resolve => require(['@/pages/shelf/Shelf'], resolve)
   },
   ...createRoute('pages', AppRouter)

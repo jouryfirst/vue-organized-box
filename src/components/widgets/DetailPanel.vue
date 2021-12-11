@@ -1,7 +1,7 @@
 <template>
     <div class="detail-panel">
-        <div class="header is-flex">
-            <div class="return-icon">《</div>
+        <div class="header">
+            <van-icon class="return-icon" name="arrow-left" @click="returnRoute"/>
             <div class="title">{{title}}</div>
         </div>
         <div class="content">
@@ -18,6 +18,11 @@
         type: String,
         default: ''
       }
+    },
+    methods: {
+      returnRoute () {
+        this.$emit('return')
+      }
     }
   }
 </script>
@@ -25,9 +30,16 @@
 <style scoped lang="scss">
     .detail-panel {
         .header {
-            align-items: center;
+            position: relative;
+            height: 10vh;
+            .return-icon {
+                position: absolute;
+                left: 20px;
+                top: 20px;
+            }
             .title {
-
+                padding-top: 4vh;
+                text-align: center;
             }
         }
     }

@@ -4,7 +4,10 @@ import router from './router'
 import './vantUI'
 import './components/index'
 import './style/common.scss'
+import './mock/mock'
+import echarts from './utils/echarts'
 
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
 new Vue({
