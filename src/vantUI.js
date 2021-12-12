@@ -9,6 +9,10 @@ import { Sidebar, SidebarItem } from 'vant'
 import { List } from 'vant'
 import { PullRefresh } from 'vant'
 import { Cell, CellGroup } from 'vant'
+import { Form } from 'vant'
+import { Field } from 'vant'
+import { Rate } from 'vant'
+import { Uploader } from 'vant'
 
 Vue.use(Icon)
 Vue.use(Search)
@@ -26,3 +30,7 @@ Vue.use(List)
 Vue.use(PullRefresh)
 Vue.use(Cell)
 Vue.use(CellGroup)
+Vue.use(Form)
+Vue.use(Field)
+Vue.use(Rate)
+Vue.use(Uploader)

@@ -18,6 +18,11 @@ const router = [
     path: '/statistics/boxDetail',
     name: 'BoxDetail',
     component: 'shelf/BoxDetail'
+  },
+  {
+    path: '/shelf/goodsAdd',
+    name: 'goodsAdd',
+    component: 'shelf/GoodsAdd'
   }
 ]
 

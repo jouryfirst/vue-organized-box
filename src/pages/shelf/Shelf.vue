@@ -24,6 +24,9 @@
             <box-content v-if="sortType !== 2"></box-content>
             <not-classified v-else></not-classified>
         </div>
+        <div class="add-good-btn" @click="addGoods">
+            <van-icon color="#fff" name="plus" />
+        </div>
     </div>
 </template>
 
@@ -74,12 +77,7 @@
             text: '不分组',
             value: 2
           }
-        ],
-        scrollBottom: 50,
-        initPosition: {
-          x: 0,
-          y: 0
-        }
+        ]
       }
     },
     methods: {
@@ -103,6 +101,13 @@
           console.log(e)
         }
       },
+      addGoods () {
+        this.$router.push(
+          {
+            name: 'goodsAdd'
+          }
+        )
+      },
       init () {
         this.getRoomTabs()
       }
@@ -125,6 +130,18 @@
         }
         .box-content {
             height: calc(100vh - 12rem);
+        }
+        .add-good-btn {
+            position: fixed;
+            z-index: 9;
+            right: 7%;
+            bottom: 300px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 100px;
+            background-color: #fcb643;
         }
     }
 </style>
