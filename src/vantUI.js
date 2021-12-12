@@ -6,6 +6,8 @@ import { Tabbar, TabbarItem } from 'vant'
 import { DropdownMenu, DropdownItem } from 'vant'
 import { IndexBar, IndexAnchor } from 'vant'
 import { Sidebar, SidebarItem } from 'vant'
+import { List } from 'vant'
+import { PullRefresh } from 'vant'
 
 Vue.use(Icon)
 Vue.use(Search)
@@ -19,3 +21,6 @@ Vue.use(IndexBar)
 Vue.use(IndexAnchor)
 Vue.use(Sidebar)
 Vue.use(SidebarItem)
+Vue.use(List)
+Vue.use(PullRefresh)
+

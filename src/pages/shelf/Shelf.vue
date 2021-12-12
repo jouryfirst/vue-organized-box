@@ -1,8 +1,15 @@
 <template>
     <div class="box-shelf-container">
         <div class="box-shelf-header">
-            <van-search v-model="searchValue" placeholder="请输入物品名称"></van-search>
+            <van-search
+                    v-model="searchValue"
+                    show-action
+                    placeholder="请输入物品名称"
+                    @focus="showSearchList"
+                    @cancel="hideSearchList"
+            ></van-search>
         </div>
+        <search-list class="search-list" v-show="searchListVis"></search-list>
         <van-tabs v-model="activeTab">
             <van-tab
                     v-for="(item, index) in tabLists"
@@ -21,17 +28,23 @@
 </template>
 
 <script>
-    import BoxContent from "@/components/shelf/BoxContent";
-    import NotClassified from "@/components/shelf/NotClassified";
+  import BoxContent from "@/components/shelf/BoxContent";
+  import NotClassified from "@/components/shelf/NotClassified";
+  import SearchList from "@/components/shelf/SearchList";
+  import {getRoomTabs} from "@/api/shelfApis";
+  import {REQUEST_SUCCESS} from "@/constant";
+
   export default {
     name: "Shelf",
     components: {
       BoxContent,
-      NotClassified
+      NotClassified,
+      SearchList
     },
-    data () {
+    data() {
       return {
         searchValue: '',
+        searchListVis: false,
         activeTab: 'all',
         tabLists: [
           {
@@ -68,12 +81,48 @@
           y: 0
         }
       }
+    },
+    methods: {
+      showSearchList () {
+        this.searchListVis = true
+      },
+      hideSearchList () {
+        this.searchListVis = false
+      },
+      async getRoomTabs() {
+        try {
+          const {code, data} = await getRoomTabs()
+          if (code === REQUEST_SUCCESS) {
+            this.tabLists = data || []
+            this.tabLists.unshift({
+              title: '全部',
+              code: 'all'
+            })
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      init () {
+        this.getRoomTabs()
+      }
+    },
+    mounted() {
+      this.init()
     }
   }
 </script>
 
 <style scoped lang="scss">
     .box-shelf-container {
+        position: relative;
+        .search-list {
+            position: absolute;
+            z-index: 10;
+            background-color: rgba(255,255,255, 0.9);
+            width: 100%;
+            height: calc(100vh - 3.45rem);
+        }
         .box-content {
             height: calc(100vh - 12rem);
         }
