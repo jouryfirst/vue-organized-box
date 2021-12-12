@@ -1,8 +1,5 @@
 <template>
     <div class="search-list-container">
-        <van-pull-refresh
-                v-model="refreshing"
-                @refresh="onRefresh">
             <van-list
                     class="search-van-list"
                     v-model="loading"
@@ -12,35 +9,46 @@
                         class="search-item"
                         v-for="(item, index) in lists"
                         :key="index"
-                >{{formateColor(item.label)}}</div>
+                        v-html="formateColor(item.label)"
+                ></div>
             </van-list>
-        </van-pull-refresh>
     </div>
 </template>
 
 <script>
+  import {getSearchLists} from "@/api/shelfApis";
+  import {REQUEST_SUCCESS} from "@/constant";
+
   export default {
     name: "SearchList",
     data () {
       return {
         loading: false,
         finished: true,
-        refreshing: false,
+        searchValue: '遥控',
         lists: []
       }
     },
+    mounted() {
+      this.getSearchLists()
+    },
     methods: {
       formateColor (label) {
-        return label
+        const labelReg = new RegExp(this.searchValue, 'g')
+        const newLabel =  label.replace(labelReg, `<span style="color: red">${this.searchValue}</span>`)
+        return newLabel
       },
-      onRefresh() {
-        // 清空列表数据
-        this.finished = false
-
-        // 重新加载数据
-        // 将 loading 设置为 true，表示处于加载状态
-        this.loading = true
-        this.onLoad()
+      async getSearchLists () {
+        try {
+          const { code, data } = await getSearchLists({value: this.searchValue})
+          this.refreshing = false
+          this.loading = false
+          if (code === REQUEST_SUCCESS) {
+            this.lists = data || []
+          }
+        } catch (e) {
+          console.log(e)
+        }
       },
       onLoad () {
         setTimeout(() => {
@@ -70,7 +78,14 @@
 <style scoped lang="scss">
     .search-list-container {
         .search-van-list {
+            max-height: calc(100vh - 5rem);
             padding: 20px 2.7vw;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            &::-webkit-scrollbar {
+                display: none;
+            }
             .search-item {
                 line-height: 7.6vh;
                 padding-left: 40px;

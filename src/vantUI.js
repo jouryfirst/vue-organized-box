@@ -8,6 +8,7 @@ import { IndexBar, IndexAnchor } from 'vant'
 import { Sidebar, SidebarItem } from 'vant'
 import { List } from 'vant'
 import { PullRefresh } from 'vant'
+import { Cell, CellGroup } from 'vant'
 
 Vue.use(Icon)
 Vue.use(Search)
@@ -23,4 +24,5 @@ Vue.use(Sidebar)
 Vue.use(SidebarItem)
 Vue.use(List)
 Vue.use(PullRefresh)
-
+Vue.use(Cell)
+Vue.use(CellGroup)

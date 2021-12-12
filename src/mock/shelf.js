@@ -23,3 +23,13 @@ Mock.mock(`${BASE_URL}/shelf/getRoomTabs`, {
   ],
   'msg': 'success'
 })
+
+Mock.mock(/http:\/\/localhost:8080\/shelf\/getSearchLists/, {
+  'code': '0',
+  'data|50-200': [
+    {
+      'label': '@name'
+    }
+  ],
+  'msg': 'success'
+})

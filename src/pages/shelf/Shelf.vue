@@ -9,7 +9,7 @@
                     @cancel="hideSearchList"
             ></van-search>
         </div>
-        <search-list class="search-list" v-show="searchListVis"></search-list>
+        <search-list class="search-list" v-if="searchListVis"></search-list>
         <van-tabs v-model="activeTab">
             <van-tab
                     v-for="(item, index) in tabLists"
