@@ -1,7 +1,7 @@
 <template>
     <div class="goods-detail-container">
         <j-panel :title="title" @return="returnRoute">
-        <van-form>
+        <van-form class="goods-form">
             <van-field
                     v-model="formData.goodsName"
                     input-align="right"
@@ -59,6 +59,10 @@
                     placeholder="请输入备注"
                     show-word-limit
             />
+            <div class="submit-btn">
+                <van-button round block type="info" native-type="submit">提交</van-button>
+            </div>
+
         </van-form>
         </j-panel>
     </div>
@@ -94,6 +98,13 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .goods-detail-container {
+        .goods-form {
+            .submit-btn {
+                padding: 1.2vh 30px;
+                background-color: #fff;
+            }
+        }
+    }
 </style>

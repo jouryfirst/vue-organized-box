@@ -13,6 +13,7 @@ import { Form } from 'vant'
 import { Field } from 'vant'
 import { Rate } from 'vant'
 import { Uploader } from 'vant'
+import { Button } from 'vant'
 
 Vue.use(Icon)
 Vue.use(Search)
@@ -34,3 +35,4 @@ Vue.use(Form)
 Vue.use(Field)
 Vue.use(Rate)
 Vue.use(Uploader)
+Vue.use(Button)
