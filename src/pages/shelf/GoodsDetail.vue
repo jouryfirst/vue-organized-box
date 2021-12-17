@@ -41,7 +41,7 @@
                     <div class="label">图片</div>
                     <img src="../../assets/logo.png" alt="">
                 </div>
-                <van-button type="danger" block>删除</van-button>
+                <van-button type="danger" block @click="deleteGoods">删除</van-button>
             </div>
         </j-panel>
     </div>
@@ -59,6 +59,13 @@
     methods: {
       returnRoute () {
         this.$router.go(-1)
+      },
+      deleteGoods () {
+        this.$dialog.confirm({
+          title: '注意！',
+          message: '要将该物品放入回收站吗？',
+          theme: 'round-button',
+        })
       }
     }
   }

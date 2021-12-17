@@ -15,6 +15,13 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .personal-config-container {
+        .title {
+            padding-left: 30px;
+            line-height: 4vh;
+            color: #f68024;
+            font-weight: bold;
+        }
+    }
 </style>

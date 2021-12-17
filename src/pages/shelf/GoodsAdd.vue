@@ -36,6 +36,12 @@
                     @click="showRoomPop"
             />
             <van-field
+                    v-model="formData.goodsTag"
+                    input-align="right"
+                    name="物品品牌"
+                    placeholder="请输入"
+                    label="物品品牌"/>
+            <van-field
                     name="rate"
                     input-align="right"
                     label="重要程度">
@@ -79,6 +85,7 @@
           count: 1,
           room: '',
           category: '',
+          goodsTag: '',
           rate: 3,
           photo: [],
           remark: ''
@@ -100,7 +107,13 @@
 
 <style scoped lang="scss">
     .goods-detail-container {
+        background-color: #fff;
+        height: calc(100% - 3.125rem);
+        padding: 20px;
         .goods-form {
+            border-radius: 20px;
+            box-shadow: 0 2px 10px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px 40px;
             .submit-btn {
                 padding: 1.2vh 30px;
                 background-color: #fff;
