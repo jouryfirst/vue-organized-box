@@ -1,20 +1,42 @@
 import Vue from 'vue'
-import { Icon, Search, Tab, Tabs, Tabbar, TabbarItem, DropdownMenu, DropdownItem } from 'vant'
+import { Icon,
+  Search,
+  Tab,
+  Tabs,
+  Tabbar,
+  TabbarItem,
+  DropdownMenu,
+  DropdownItem,
+  IndexBar,
+  IndexAnchor,
+  Sidebar,
+  SidebarItem,
+  List,
+  PullRefresh,
+  Cell,
+  CellGroup,
+  Form,
+  Field,
+  Rate,
+  Uploader,
+  Button,
+  Dialog
+} from 'vant'
 // import { Search } from 'vant'
 // import { Tab, Tabs } from 'vant'
 // import { Tabbar, TabbarItem } from 'vant'
 // import { DropdownMenu, DropdownItem } from 'vant'
-import { IndexBar, IndexAnchor } from 'vant'
-import { Sidebar, SidebarItem } from 'vant'
-import { List } from 'vant'
-import { PullRefresh } from 'vant'
-import { Cell, CellGroup } from 'vant'
-import { Form } from 'vant'
-import { Field } from 'vant'
-import { Rate } from 'vant'
-import { Uploader } from 'vant'
-import { Button } from 'vant'
-import { Dialog } from 'vant'
+// import { IndexBar, IndexAnchor } from 'vant'
+// import { Sidebar, SidebarItem } from 'vant'
+// import { List } from 'vant'
+// import { PullRefresh } from 'vant'
+// import { Cell, CellGroup } from 'vant'
+// import { Form } from 'vant'
+// import { Field } from 'vant'
+// import { Rate } from 'vant'
+// import { Uploader } from 'vant'
+// import { Button } from 'vant'
+// import { Dialog } from 'vant'
 
 Vue.use(Icon)
 Vue.use(Search)
