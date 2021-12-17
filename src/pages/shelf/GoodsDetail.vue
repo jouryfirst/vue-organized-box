@@ -41,7 +41,8 @@
                     <div class="label">图片</div>
                     <img src="../../assets/logo.png" alt="">
                 </div>
-                <van-button type="danger" block @click="deleteGoods">删除</van-button>
+                <van-button class="edit-btn" type="info" round block @click="editGoods">编辑</van-button>
+                <van-button type="danger" round block @click="deleteGoods">删除</van-button>
             </div>
         </j-panel>
     </div>
@@ -59,6 +60,14 @@
     methods: {
       returnRoute () {
         this.$router.go(-1)
+      },
+      editGoods () {
+        this.$router.push({
+          name: 'goodsAdd',
+          query: {
+            isEdit: true
+          }
+        })
       },
       deleteGoods () {
         this.$dialog.confirm({
@@ -95,6 +104,10 @@
                             font-size: 16px;
                         }
                     }
+                    &:last-child {
+                        border: none;
+                    }
+
                 }
             }
             .goods-img {
@@ -107,6 +120,9 @@
                     line-height: 3vh;
                     font-size: 16px;
                 }
+            }
+            .edit-btn {
+                margin-bottom: 2vh;
             }
         }
     }

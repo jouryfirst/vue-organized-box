@@ -66,7 +66,7 @@
                     show-word-limit
             />
             <div class="submit-btn">
-                <van-button round block type="info" native-type="submit">提交</van-button>
+                <van-button round block type="info" native-type="submit">{{$route.query.isEdit ? '修改' : '提交'}}</van-button>
             </div>
 
         </van-form>
@@ -94,11 +94,15 @@
     },
     methods: {
       returnRoute () {
-        this.$router.push(
-          {
-            name: 'Shelf'
-          }
-        )
+        if (this.$route.query.isEdit) {
+          this.$router.go(-1)
+        } else {
+          this.$router.push(
+            {
+              name: 'Shelf'
+            }
+          )
+        }
       },
       showRoomPop () {}
     }
