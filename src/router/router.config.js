@@ -23,6 +23,11 @@ const router = [
     path: '/shelf/goodsAdd',
     name: 'goodsAdd',
     component: 'shelf/GoodsAdd'
+  },
+  {
+    path: '/shelf/goodsDetail',
+    name: 'goodsDetail',
+    component: 'shelf/GoodsDetail'
   }
 ]
 

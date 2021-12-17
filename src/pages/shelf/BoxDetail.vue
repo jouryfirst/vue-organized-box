@@ -11,6 +11,7 @@
                     v-model="loading">
                 <van-cell
                         v-for="(item, index) in boxLists"
+                        @click="goGoodsDetail(item)"
                         :key="index"
                         :title="item.name"
                         :label="item.location"
@@ -52,6 +53,16 @@
         this.$router.push(
           {
             name: 'Shelf'
+          }
+        )
+      },
+      goGoodsDetail (item) {
+        this.$router.push(
+          {
+            name: 'goodsDetail',
+            query: {
+              name: item.name
+            }
           }
         )
       }

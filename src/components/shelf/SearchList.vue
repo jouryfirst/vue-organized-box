@@ -8,6 +8,7 @@
                 <div
                         class="search-item"
                         v-for="(item, index) in lists"
+                        @click="goGoodsDetail(item)"
                         :key="index"
                         v-html="formateColor(item.label)"
                 ></div>
@@ -70,6 +71,16 @@
             this.finished = true;
           }
         }, 1000);
+      },
+      goGoodsDetail (item) {
+        this.$router.push(
+          {
+            name: 'goodsDetail',
+            query: {
+              name: item.name || '0'
+            }
+          }
+        )
       }
     }
   }
