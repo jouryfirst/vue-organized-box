@@ -3,7 +3,7 @@
         <j-panel title="分类配置" @return="returnRoute">
             <van-notice-bar
                     left-icon="volume-o"
-                    text="右滑可编辑或删除分类"
+                    text="左滑可编辑或删除分类"
             />
             <div class="category-wrap">
                 <div class="category-li">

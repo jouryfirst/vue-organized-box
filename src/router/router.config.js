@@ -38,6 +38,11 @@ const router = [
     path: '/config/categoryPopup',
     name: 'CategoryPopup',
     component: 'config/CategoryPopup'
+  },
+  {
+    path: '/config/recycleBin',
+    name: 'RecycleBin',
+    component: 'config/RecycleBin'
   }
 ]
 

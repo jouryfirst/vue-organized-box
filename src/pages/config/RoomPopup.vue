@@ -2,9 +2,9 @@
     <div class="room-popup-container basic-container">
         <j-panel title="房间配置" @return="returnRoute">
             <van-notice-bar
-                    left-icon="volume-o"
-                    text="右滑可编辑或删除房间"
-            />
+                left-icon="volume-o"
+                text="左滑可编辑或删除房间"
+        />
             <div class="room-wrap">
                 <div class="room-li">
                     <van-swipe-cell

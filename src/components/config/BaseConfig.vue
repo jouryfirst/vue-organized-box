@@ -4,7 +4,7 @@
         <van-cell-group inset class="base-config-wrap">
             <van-cell icon="wap-home-o" title="房间" is-link label="新增或修改房间" @click="goRoomConfig"/>
             <van-cell icon="points" title="分类" is-link label="新增或修改分类" @click="goCategoryConfig"/>
-            <van-cell icon="delete-o" title="回收站" is-link label="查看回收站物品" />
+            <van-cell icon="delete-o" title="回收站" is-link label="查看回收站物品" @click="goRecycleBin"/>
         </van-cell-group>
     </div>
 </template>
@@ -29,6 +29,13 @@
         this.$router.push(
           {
             name: 'CategoryPopup'
+          }
+        )
+      },
+      goRecycleBin () {
+        this.$router.push(
+          {
+            name: 'RecycleBin'
           }
         )
       }
