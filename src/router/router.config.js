@@ -33,6 +33,11 @@ const router = [
     path: '/config/roomPopup',
     name: 'RoomPopup',
     component: 'config/RoomPopup'
+  },
+  {
+    path: '/config/categoryPopup',
+    name: 'CategoryPopup',
+    component: 'config/CategoryPopup'
   }
 ]
 
