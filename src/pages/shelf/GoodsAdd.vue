@@ -1,5 +1,5 @@
 <template>
-    <div class="goods-detail-container">
+    <div class="goods-detail-container basic-container">
         <j-panel :title="title" @return="returnRoute">
         <van-form class="goods-form">
             <van-field
@@ -111,8 +111,6 @@
 
 <style scoped lang="scss">
     .goods-detail-container {
-        background-color: #fff;
-        height: calc(100% - 3.125rem);
         padding: 20px;
         .goods-form {
             border-radius: 20px;

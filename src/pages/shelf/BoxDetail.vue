@@ -1,5 +1,5 @@
 <template>
-    <div class="box-detail-container">
+    <div class="box-detail-container basic-container">
         <j-panel class="box-detail-panel" :title="title" @return="returnRoute">
             <van-sidebar v-model="activeTab">
                 <van-sidebar-item title="全部"></van-sidebar-item>

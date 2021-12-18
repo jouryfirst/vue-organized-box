@@ -32,6 +32,7 @@
         .header {
             position: relative;
             height: 10vh;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
             .return-icon {
                 position: absolute;
                 left: 20px;

@@ -20,7 +20,10 @@ import { Icon,
   Rate,
   Uploader,
   Button,
-  Dialog
+  Dialog,
+  Popup,
+  NoticeBar,
+  SwipeCell
 } from 'vant'
 // import { Search } from 'vant'
 // import { Tab, Tabs } from 'vant'
@@ -60,3 +63,6 @@ Vue.use(Rate)
 Vue.use(Uploader)
 Vue.use(Button)
 Vue.use(Dialog)
+Vue.use(Popup)
+Vue.use(NoticeBar)
+Vue.use(SwipeCell)

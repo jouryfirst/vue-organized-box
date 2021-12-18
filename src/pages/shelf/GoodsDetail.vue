@@ -1,5 +1,5 @@
 <template>
-    <div class="goods-detail-container">
+    <div class="goods-detail-container basic-container">
         <j-panel :title="title" @return="returnRoute">
             <div class="goods-content">
                 <div class="goods-wrapper">
@@ -82,8 +82,6 @@
 
 <style scoped lang="scss">
     .goods-detail-container {
-        background-color: #fff;
-        height: calc(100% - 3.125rem);
         .goods-content {
             padding: 20px;
             max-height: 83vh;
