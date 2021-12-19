@@ -12,7 +12,7 @@
                             v-for="(item, index) in recycleLists"
                             :key="index">
                         <template #left>
-                            <van-button square type="primary" text="恢复原位" />
+                            <van-button square type="primary" text="还原物品" />
                         </template>
                         <van-cell :border="false" :title="item.name"/>
                         <template #right>
