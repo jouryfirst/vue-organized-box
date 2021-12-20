@@ -21,11 +21,15 @@ npm install
 npm run serve
 
 访问http://localhost:8080/
+
+以谷歌浏览器兼容最佳，按F12打开DevTools，选择移动端兼容
+
+以375适配最佳
 ```
 
 ### 功能列表
 ```
-npm run lint
+待续
 ```
 
 ### Customize configuration
