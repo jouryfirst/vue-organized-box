@@ -8,7 +8,9 @@
                     name="物品名称"
                     required
                     placeholder="请输入"
-                    label="物品名称"/>
+                    label="物品名称"
+                    :rules="formRules.goodsName"
+            />
             <van-field
                     v-model="formData.count"
                     input-align="right"
@@ -89,6 +91,9 @@
           rate: 3,
           photo: [],
           remark: ''
+        },
+        formRules: {
+          goodsName: [{}]
         }
       }
     },
