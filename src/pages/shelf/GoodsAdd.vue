@@ -1,15 +1,15 @@
 <template>
     <div class="goods-detail-container basic-container">
         <j-panel :title="title" @return="returnRoute">
-        <van-form class="goods-form">
+        <van-form validate-first class="goods-form">
             <van-field
                     v-model="formData.goodsName"
                     input-align="right"
-                    name="物品名称"
+                    name="goodsValidate"
                     required
                     placeholder="请输入"
                     label="物品名称"
-                    :rules="formRules.goodsName"
+                    :rules="[{ validator: goodsValidate, message: '不能包含特殊字符' }]"
             />
             <van-field
                     v-model="formData.count"
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+    import regExp from '@/utils/formRules'
   export default {
     name: "GoodsDetail",
     data () {
@@ -91,13 +92,13 @@
           rate: 3,
           photo: [],
           remark: ''
-        },
-        formRules: {
-          goodsName: [{}]
         }
       }
     },
     methods: {
+      goodsValidate(val) {
+        return regExp.hasSpecialString.test(val);
+      },
       returnRoute () {
         if (this.$route.query.isEdit) {
           this.$router.go(-1)
