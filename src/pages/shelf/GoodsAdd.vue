@@ -40,9 +40,11 @@
             <van-field
                     v-model="formData.goodsTag"
                     input-align="right"
-                    name="物品品牌"
+                    name="goodsValidate"
                     placeholder="请输入"
-                    label="物品品牌"/>
+                    label="物品品牌"
+                    :rules="[{ validator: goodsValidate, message: '不能包含特殊字符' }]"
+            />
             <van-field
                     name="rate"
                     input-align="right"
