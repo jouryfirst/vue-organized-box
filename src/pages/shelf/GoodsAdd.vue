@@ -15,8 +15,11 @@
                     v-model="formData.count"
                     input-align="right"
                     type="digit"
+                    name="digitValidate"
                     required
-                    label="数量" />
+                    label="数量"
+                    :rules="[{ validator: digitValidate, message: '必须是正整数' }]"
+            />
             <van-field
                     v-model="formData.room"
                     input-align="right"
@@ -99,7 +102,10 @@
     },
     methods: {
       goodsValidate(val) {
-        return regExp.hasSpecialString.test(val);
+        return regExp.hasSpecialString.test(val)
+      },
+      digitValidate (val) {
+        return regExp.isInteger.test(val)
       },
       returnRoute () {
         if (this.$route.query.isEdit) {
