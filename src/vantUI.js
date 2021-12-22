@@ -23,7 +23,8 @@ import { Icon,
   Dialog,
   Popup,
   NoticeBar,
-  SwipeCell
+  SwipeCell,
+  Picker
 } from 'vant'
 // import { Search } from 'vant'
 // import { Tab, Tabs } from 'vant'
@@ -66,3 +67,4 @@ Vue.use(Dialog)
 Vue.use(Popup)
 Vue.use(NoticeBar)
 Vue.use(SwipeCell)
+Vue.use(Picker)

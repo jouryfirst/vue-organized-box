@@ -77,6 +77,9 @@
             </div>
 
         </van-form>
+            <van-popup v-model="popVisible" round position="bottom">
+                <van-picker :columns="pickerColumns"></van-picker>
+            </van-popup>
         </j-panel>
     </div>
 </template>
@@ -97,7 +100,9 @@
           rate: 3,
           photo: [],
           remark: ''
-        }
+        },
+        popVisible: false,
+        pickerColumns: []
       }
     },
     methods: {
@@ -118,7 +123,9 @@
           )
         }
       },
-      showRoomPop () {}
+      showRoomPop () {
+        this.popVisible = true
+      }
     }
   }
 </script>
