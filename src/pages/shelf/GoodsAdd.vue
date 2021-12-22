@@ -28,7 +28,7 @@
                     required
                     label="房间"
                     placeholder="选择"
-                    @click="showRoomPop"
+                    @click="showRoomPop('room')"
             />
             <van-field
                     v-model="formData.category"
@@ -38,7 +38,7 @@
                     required
                     label="分类"
                     placeholder="选择"
-                    @click="showRoomPop"
+                    @click="showRoomPop('category')"
             />
             <van-field
                     v-model="formData.goodsTag"
@@ -123,7 +123,12 @@
           )
         }
       },
-      showRoomPop () {
+      showRoomPop (type) {
+        const testData = {
+          room: ['客厅', '卧室'],
+          category: ['电子产品', '厨具', '调味品']
+        }
+        this.pickerColumns = testData[type]
         this.popVisible = true
       }
     }
