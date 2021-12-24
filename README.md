@@ -1,6 +1,6 @@
-# organized-box 收纳盒
+# vue-organized-box 收纳盒
 
-## About
+## 🚀About
 :cat:项目的起因在于某一天在家收拾屋子，抽屉里的各种文件和数据线太杂乱了。老婆提议建一个excel文档来记录整理后的物品位置。
 
 我想着干脆开发一个app来记录好了，顺便把技术练练手，于是就有了这个项目。
@@ -11,39 +11,45 @@
 
 **注：此项目属于个人练手项目，不用于任何商业用途**
 
-### 技术栈
-vue全家桶(vue2.0 + vue-cli 4.5.0 + vuex + vue router) + Vant + postcss-pxtorem
+## Tech Stack
+
+**Client:** vue全家桶(vue2.0 + vue-cli 4.5.0 + vuex + vue router) + Vant + postcss-pxtorem
+
+**Server:** Node, Koa2(服务端尚在开发中)
 
 
+## Run Locally
 
-### 项目运行
-```
-npm install
+Clone the project
 
-npm run serve
-
-访问http://localhost:8080/
-
-以谷歌浏览器兼容最佳，按F12打开DevTools，选择移动端兼容
-
-以375适配最佳
+```bash
+  git clone https://github.com/jouryfirst/organized-box.git
 ```
 
-### 功能列表
+Go to the project directory
 
-- [x] 房间页 - 房间tab
-- [x]  房间页 - 按位置/分类/不分组展示物品盒子
-- [x]  房间页 - 搜索物品
-- [x]  房间页 - 添加物品
-- [x]  房间页 - 盒子详情/物品详情
-- [x]  统计页 - echarts图表 - 分类占比/房间占比/物品数量趋势
-- [x]  配置页 - 新增/修改房间
-- [x]  配置页 - 新增/修改分类
-- [ ] 回收站
-- [ ] 接口
+```bash
+  cd organized-box
+```
 
-待续
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run serve
+```
 
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Screenshots
+
+![](../public/shelf.png)
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
