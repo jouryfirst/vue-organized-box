@@ -47,7 +47,15 @@ Start the server
 
 ## Screenshots
 
-![](../public/shelf.png)
+![1](https://github.com/jouryfirst/organized-box/blob/main/src/assets/githubImages/shelf.png?raw=true)
+
+![2](https://github.com/jouryfirst/organized-box/blob/main/src/assets/githubImages/statistics.png?raw=true)
+
+![3](https://github.com/jouryfirst/organized-box/blob/main/src/assets/githubImages/config.png?raw=true)
+
+![4](https://github.com/jouryfirst/organized-box/blob/main/src/assets/githubImages/addGoods.png?raw=true)
+
+![5](https://github.com/jouryfirst/organized-box/blob/main/src/assets/githubImages/goodDetail.png?raw=true)
 
 
 ## License
