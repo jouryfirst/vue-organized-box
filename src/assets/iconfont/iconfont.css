@@ -1,0 +1,45 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1640351299255') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-appstore:before {
+  content: "\e794";
+}
+
+.icon--box1:before {
+  content: "\e61f";
+}
+
+.icon--box2:before {
+  content: "\e61a";
+}
+
+.icon--box3:before {
+  content: "\e6dd";
+}
+
+.icon--box4:before {
+  content: "\e6de";
+}
+
+.icon--box5:before {
+  content: "\e71f";
+}
+
+.icon-color:before {
+  content: "\e748";
+}
+
+.icon-trust:before {
+  content: "\e76a";
+}
+

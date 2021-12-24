@@ -1,0 +1,65 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "54922960",
+      "name": "app store",
+      "font_class": "appstore",
+      "unicode": "e794",
+      "unicode_decimal": 59284
+    },
+    {
+      "icon_id": "92151965",
+      "name": "柜子",
+      "font_class": "-box1",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "92151966",
+      "name": "柜子",
+      "font_class": "-box2",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "92151967",
+      "name": "打开的盒子，货物",
+      "font_class": "-box3",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "92151968",
+      "name": "打开的盒子",
+      "font_class": "-box4",
+      "unicode": "e6de",
+      "unicode_decimal": 59102
+    },
+    {
+      "icon_id": "92151969",
+      "name": "box，盒子，包装，物流，快递",
+      "font_class": "-box5",
+      "unicode": "e71f",
+      "unicode_decimal": 59167
+    },
+    {
+      "icon_id": "11488005",
+      "name": "color",
+      "font_class": "color",
+      "unicode": "e748",
+      "unicode_decimal": 59208
+    },
+    {
+      "icon_id": "11488162",
+      "name": "trust",
+      "font_class": "trust",
+      "unicode": "e76a",
+      "unicode_decimal": 59242
+    }
+  ]
+}

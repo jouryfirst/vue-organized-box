@@ -6,6 +6,8 @@ import './components/index'
 import './style/common.scss'
 import './mock/mock'
 import echarts from './utils/echarts'
+import './assets/iconfont/iconfont.js'
+import './assets/iconfont/iconfont.css'
 
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false

@@ -11,6 +11,10 @@
                 <span>{{item.count}}</span>
                 <span>个物品</span>
             </div>
+            <svg class="icon" aria-hidden="true">
+                <use :xlink:href="`#icon--box${Math.floor(Math.random() * 5 + 1)}`"></use>
+            </svg>
+<!--            <i class="iconfont" :class="`icon&#45;&#45;box${Math.floor(Math.random() * 6)}`"></i>-->
         </div>
     </div>
 </template>
@@ -82,6 +86,14 @@
             }
             &:nth-child(3n+3) {
                 margin: 0 0 30px 2.5%;
+            }
+            .icon {
+                margin-top: 20px;
+                width: 110px;
+                height: 110px;
+                vertical-align: -0.15em;
+                fill: currentColor;
+                overflow: hidden;
             }
         }
 
