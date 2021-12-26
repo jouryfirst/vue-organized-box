@@ -7,7 +7,9 @@
 
 整个项目分为两部分：前端页面以及后端接口。目前在逐步开发中...
 
-:zap::zap:该Repository仅为前端项目，后端接口尚在开发中
+:zap::zap:该Repository仅为前端项目，后端接口尚在开发中,
+
+服务端项目地址:[node-organized-box](https://github.com/jouryfirst/node-organized-box)
 
 **注：此项目属于个人练手项目，不用于任何商业用途**
 
