@@ -10,14 +10,14 @@
                         v-for="(item, index) in lists"
                         @click="goGoodsDetail(item)"
                         :key="index"
-                        v-html="formateColor(item.label)"
+                        v-html="formateColor(item.goodsName)"
                 ></div>
             </van-list>
     </div>
 </template>
 
 <script>
-  import {getSearchLists} from "@/api/shelfApis";
+  import { getGoodsLists } from '@/api/goodsApis'
   import {REQUEST_SUCCESS} from "@/constant";
 
   export default {
@@ -26,8 +26,19 @@
       return {
         loading: false,
         finished: true,
-        searchValue: '遥控',
         lists: []
+      }
+    },
+    props: {
+      searchValue: {
+        type: String,
+        default: ''
+      }
+    },
+    watch: {
+      searchValue: function (val) {
+        // TODO 防抖
+        this.getSearchLists(val)
       }
     },
     mounted() {
@@ -39,13 +50,13 @@
         const newLabel =  label.replace(labelReg, `<span style="color: red">${this.searchValue}</span>`)
         return newLabel
       },
-      async getSearchLists () {
+      async getSearchLists (val = '') {
         try {
-          const { code, data } = await getSearchLists({value: this.searchValue})
+          const { code, data } = await getGoodsLists({goodsName: val})
           this.refreshing = false
           this.loading = false
           if (code === REQUEST_SUCCESS) {
-            this.lists = data || []
+            this.lists = data.goodsList || []
           }
         } catch (e) {
           console.log(e)
