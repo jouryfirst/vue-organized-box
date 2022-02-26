@@ -23,12 +23,13 @@
             <van-field
                     v-model="formData.room"
                     input-align="right"
+                    name="picker"
                     is-link
                     readonly
                     required
                     label="房间"
                     placeholder="选择"
-                    @click="showRoomPop('room')"
+                    @click="showRoomPop('roomLists')"
             />
             <van-field
                     v-model="formData.category"
@@ -38,7 +39,7 @@
                     required
                     label="分类"
                     placeholder="选择"
-                    @click="showRoomPop('category')"
+                    @click="showRoomPop('categoryLists')"
             />
             <van-field
                     v-model="formData.goodsTag"
@@ -78,7 +79,12 @@
 
         </van-form>
             <van-popup v-model="popVisible" round position="bottom">
-                <van-picker :columns="pickerColumns"></van-picker>
+                <van-picker
+                        :show-toolbar="true"
+                        toolbar-position="top"
+                        :columns="pickerColumns"
+                        @confirm="confirmPicker"
+                        @cancel="onCancel"></van-picker>
             </van-popup>
         </j-panel>
     </div>
@@ -86,6 +92,8 @@
 
 <script>
     import regExp from '@/utils/formRules'
+    import { getRoomLists, getCategoriesList } from "@/api/optionsApis";
+    import {REQUEST_SUCCESS} from "@/constant";
   export default {
     name: "GoodsDetail",
     data () {
@@ -101,7 +109,13 @@
           photo: [],
           remark: ''
         },
+        submitData: {
+          room: '',
+          category: '',
+        },
         popVisible: false,
+        roomLists: [],
+        categoryLists: [],
         pickerColumns: []
       }
     },
@@ -123,14 +137,58 @@
           )
         }
       },
-      showRoomPop (type) {
-        const testData = {
-          room: ['客厅', '卧室'],
-          category: ['电子产品', '厨具', '调味品']
+      async getRoomList () {
+        try {
+          const {code, data} = await getRoomLists()
+          if (code === REQUEST_SUCCESS) {
+            this.roomLists = data.map(item => {
+              return {
+                text: item.roomName,
+                code: item.code,
+                type: 'room'
+              }
+            }) || []
+          }
+        } catch (e) {
+          console.log(e)
         }
-        this.pickerColumns = testData[type]
+      },
+      async getCategoriesList () {
+        try {
+          const {code, data} = await getCategoriesList()
+          if (code === REQUEST_SUCCESS) {
+            this.categoryLists = data.map(item => {
+              return {
+                text: item.categoryName,
+                code: item.code,
+                type: 'category'
+              }
+            }) || []
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      showRoomPop (type) {
+        this.pickerColumns = this[type]
         this.popVisible = true
+      },
+      confirmPicker (value) {
+        // 奇葩的vant，回显和值是分开的
+        this.formData[value.type] = value.text
+        this.submitData[value.type] = value.code
+        this.popVisible = false
+      },
+      onCancel () {
+        this.popVisible = false
+      },
+      init () {
+        this.getRoomList()
+        this.getCategoriesList()
       }
+    },
+    mounted() {
+      this.init()
     }
   }
 </script>
