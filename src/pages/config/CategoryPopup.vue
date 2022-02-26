@@ -11,17 +11,17 @@
                             class="category-swipe-cell"
                             v-for="(item, index) in categoryLists"
                             :key="index">
-                        <van-cell :border="false" :title="item.name" is-link/>
+                        <van-cell :border="false" :title="item.categoryName" is-link/>
                         <template #right>
                             <van-button square type="info" text="编辑" @click="editCategory(item)" />
-                            <van-button square type="danger" text="删除" />
+                            <van-button square type="danger" text="删除" @click="deleteCategory(item)"/>
                         </template>
                     </van-swipe-cell>
                 </div>
                 <van-button type="primary" round block @click="addCategory">+新增分类</van-button>
             </div>
         </j-panel>
-        <van-popup class="category-change-dialog" v-model="popupVisible" position="top">
+        <van-popup class="category-change-dialog" v-model="popupVisible" @close="closePopup" position="top">
             <div class="title">{{isEdit ? '编辑分类' : '新增分类'}}</div>
             <van-form class="category-form" @submit="submitCategory">
                 <van-field
@@ -37,6 +37,9 @@
 </template>
 
 <script>
+  import { getCategoriesList, addCategory, editCategory, deleteCategory } from "@/api/optionsApis";
+  import { REQUEST_SUCCESS } from "@/constant";
+  import { Dialog } from 'vant'
   export default {
     name: "CategoryPopup",
     data () {
@@ -56,6 +59,16 @@
           }
         )
       },
+      async getCategoriesList () {
+        try {
+          const {code, data} = await getCategoriesList()
+          if (code === REQUEST_SUCCESS) {
+            this.categoryLists = data || []
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
       addCategory () {
         this.isEdit = false
         this.popupVisible = true
@@ -63,17 +76,81 @@
       editCategory (item) {
         this.isEdit = true
         this.categoryId = item.id
-        this.categoryName = item.name
+        this.categoryName = item.categoryName
         this.popupVisible = true
       },
+      deleteCategory (item) {
+        // TODO 房间下有物品存在不能被删除
+        Dialog.confirm({
+          title: '确认',
+          message: `该操作将删除${item.categoryName}分类，确认操作吗？`,
+        })
+          .then(() => {
+            this.submitDeleteCategory(item.id)
+          })
+          .catch(() => {
+            this.categoryId = ''
+          });
+      },
       closePopup () {
+        this.getCategoriesList()
         this.popupVisible = false
         this.categoryName = ''
         this.categoryId = ''
       },
       submitCategory () {
-        this.closePopup()
+        if (this.isEdit) {
+          this.submitEditCategory()
+        } else {
+          this.submitAddCategory()
+        }
+      },
+      async submitEditCategory () {
+        try {
+          const params = {
+            id: this.categoryId,
+            categoryName: this.categoryName
+          }
+          const {code} = await editCategory(params)
+          if (code === REQUEST_SUCCESS) {
+            console.log('修改成功')
+            this.closePopup()
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      async submitAddCategory () {
+        try {
+          const params = {
+            categoryName: this.categoryName
+          }
+          const {code} = await addCategory(params)
+          if (code === REQUEST_SUCCESS) {
+            console.log('添加成功')
+            this.closePopup()
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      async submitDeleteCategory (id) {
+        try {
+          const params = {
+            id: id
+          }
+          const {code} = await deleteCategory(params)
+          if (code === REQUEST_SUCCESS) {
+            console.log('删除成功')
+            this.getCategoriesList()
+          }
+        } catch (e) {
+          console.log(e)
+        }
       }
+    },
+    mounted() {
+      this.getCategoriesList()
     }
   }
 </script>
