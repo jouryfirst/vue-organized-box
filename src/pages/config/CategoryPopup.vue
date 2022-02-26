@@ -41,22 +41,10 @@
     name: "CategoryPopup",
     data () {
       return {
-        categoryLists: [
-          {
-            name: '电子产品'
-          },
-          {
-            name: '调料'
-          },
-          {
-            name: '厨具'
-          },
-          {
-            name: '文件'
-          }
-        ],
+        categoryLists: [],
         popupVisible: false,
         isEdit: false,
+        categoryId: '',
         categoryName: ''
       }
     },
@@ -74,15 +62,17 @@
       },
       editCategory (item) {
         this.isEdit = true
+        this.categoryId = item.id
         this.categoryName = item.name
         this.popupVisible = true
       },
-      closeCategoryDialog () {
+      closePopup () {
         this.popupVisible = false
         this.categoryName = ''
+        this.categoryId = ''
       },
       submitCategory () {
-        this.closeCategoryDialog()
+        this.closePopup()
       }
     }
   }

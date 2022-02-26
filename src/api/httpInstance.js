@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {REQUEST_SUCCESS} from "../constant";
+import { Toast } from 'vant';
 
 const http = axios.create({
   timeout: 20 * 1000,
@@ -20,11 +22,21 @@ http.interceptors.response.use(response => {
       headers: response.headers
     })
   }
-  return Promise.resolve({
-    code: response.data.code,
-    data: response.data.data,
-    msg: response.data.msg
-  })
+  if (response.data.code !== REQUEST_SUCCESS) {
+    Toast(response.data.message)
+    return Promise.resolve({
+      code: response.data.code,
+      data: response.data.data,
+      msg: response.data.message
+    })
+  } else {
+    return Promise.resolve({
+      code: REQUEST_SUCCESS,
+      data: response.data.data,
+      msg: response.data.message
+    })
+  }
+
 }, error => {
   if (error.message.indexOf('timeout') > -1) {
     this.$message.error('请求超时，请重试！')

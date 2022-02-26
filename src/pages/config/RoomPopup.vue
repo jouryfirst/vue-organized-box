@@ -11,17 +11,17 @@
                             class="room-swipe-cell"
                             v-for="(item, index) in roomLists"
                             :key="index">
-                        <van-cell :border="false" :title="item.name" is-link/>
+                        <van-cell :border="false" :title="item.roomName" is-link/>
                         <template #right>
                             <van-button square type="info" text="编辑" @click="editRoom(item)" />
-                            <van-button square type="danger" text="删除" />
+                            <van-button square type="danger" text="删除" @click="deleteRoom(item)"/>
                         </template>
                     </van-swipe-cell>
                 </div>
                 <van-button type="primary" round block @click="addRoom">+新增房间</van-button>
             </div>
         </j-panel>
-        <van-popup class="room-change-dialog" v-model="popupVisible" position="top">
+        <van-popup class="room-change-dialog" v-model="popupVisible" @close="closePopup" position="top">
             <div class="title">{{isEdit ? '编辑房间' : '新增房间'}}</div>
             <van-form class="room-form" @submit="submitRoom">
                 <van-field
@@ -37,26 +37,17 @@
 </template>
 
 <script>
+  import { getRoomLists, addRoom, editRoom, deleteRoom } from "@/api/optionsApis";
+  import { REQUEST_SUCCESS } from "@/constant";
+  import { Dialog } from 'vant'
   export default {
     name: "RoomPopup",
     data () {
       return {
-        roomLists: [
-          {
-            name: '客厅1'
-          },
-          {
-            name: '客厅2'
-          },
-          {
-            name: '客厅3'
-          },
-          {
-            name: '客厅4'
-          }
-        ],
+        roomLists: [],
         popupVisible: false,
         isEdit: false,
+        roomId: '',
         roomName: ''
       }
     },
@@ -68,22 +59,98 @@
           }
         )
       },
+      async getRoomList () {
+        try {
+          const {code, data} = await getRoomLists()
+          if (code === REQUEST_SUCCESS) {
+            this.roomLists = data || []
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
       addRoom () {
         this.isEdit = false
         this.popupVisible = true
       },
       editRoom (item) {
         this.isEdit = true
-        this.roomName = item.name
+        this.roomId = item.id
+        this.roomName = item.roomName
         this.popupVisible = true
       },
-      closeRoomDialog () {
+      deleteRoom (item) {
+        // TODO 房间下有物品存在不能被删除
+        Dialog.confirm({
+          title: '确认',
+          message: `该操作将删除${item.roomName}房间，确认操作吗？`,
+        })
+          .then(() => {
+            this.submitDeleteRoom(item.id)
+          })
+          .catch(() => {
+            this.roomId = ''
+          });
+      },
+      closePopup () {
+        this.getRoomList()
         this.popupVisible = false
         this.roomName = ''
+        this.roomId = ''
       },
       submitRoom () {
-        this.closeRoomDialog()
+        if (this.isEdit) {
+          this.submitEditRoom()
+        } else {
+          this.submitAddRoom()
+        }
+      },
+      async submitEditRoom () {
+        try {
+          const params = {
+            id: this.roomId,
+            roomName: this.roomName
+          }
+          const {code} = await editRoom(params)
+          if (code === REQUEST_SUCCESS) {
+            console.log('修改成功')
+            this.closePopup()
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      async submitAddRoom () {
+        try {
+          const params = {
+            roomName: this.roomName
+          }
+          const {code} = await addRoom(params)
+          if (code === REQUEST_SUCCESS) {
+            console.log('添加成功')
+            this.closePopup()
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      async submitDeleteRoom (id) {
+        try {
+          const params = {
+            id: id
+          }
+          const {code} = await deleteRoom(params)
+          if (code === REQUEST_SUCCESS) {
+            console.log('删除成功')
+            this.getRoomList()
+          }
+        } catch (e) {
+          console.log(e)
+        }
       }
+    },
+    mounted() {
+      this.getRoomList()
     }
   }
 </script>

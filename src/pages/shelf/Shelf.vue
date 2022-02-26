@@ -14,7 +14,7 @@
             <van-tab
                     v-for="(item, index) in tabLists"
                     :key="index"
-                    :title="item.title"
+                    :title="item.roomName"
                     :name="item.code"></van-tab>
         </van-tabs>
         <van-dropdown-menu>
@@ -34,7 +34,7 @@
   import BoxContent from "@/components/shelf/BoxContent";
   import NotClassified from "@/components/shelf/NotClassified";
   import SearchList from "@/components/shelf/SearchList";
-  import {getRoomTabs} from "@/api/shelfApis";
+  import {getRoomLists} from "@/api/optionsApis";
   import {REQUEST_SUCCESS} from "@/constant";
 
   export default {
@@ -51,16 +51,8 @@
         activeTab: 'all',
         tabLists: [
           {
-            title: '全部',
+            roomName: '全部',
             code: 'all'
-          },
-          {
-            title: '客厅',
-            code: 'a'
-          },
-          {
-            title: '主卧',
-            code: 'b'
           }
         ],
         sortType: 0,
@@ -89,11 +81,11 @@
       },
       async getRoomTabs() {
         try {
-          const {code, data} = await getRoomTabs()
+          const {code, data} = await getRoomLists()
           if (code === REQUEST_SUCCESS) {
             this.tabLists = data || []
             this.tabLists.unshift({
-              title: '全部',
+              roomName: '全部',
               code: 'all'
             })
           }
