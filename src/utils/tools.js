@@ -7,7 +7,11 @@ function debounce(func, wait) {
     if (timer) clearTimeout(timer);
 
     timer = setTimeout(() => {
-      func.apply(this, args)
-    }, 200)
+      func.apply(context, args)
+    }, wait)
   }
+}
+
+module.exports = {
+  debounce
 }

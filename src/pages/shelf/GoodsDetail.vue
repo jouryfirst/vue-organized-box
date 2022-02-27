@@ -1,16 +1,16 @@
 <template>
     <div class="goods-detail-container basic-container">
-        <j-panel :title="title" @return="returnRoute">
+        <j-panel :title="detailData.goodsName" @return="returnRoute">
             <div class="goods-content">
                 <div class="goods-wrapper">
                     <div class="goods-li is-flex">
                         <div class="goods-tag">
                             <div class="label">物品数量</div>
-                            <div class="value">3</div>
+                            <div class="value">{{detailData.goodsCount || 0}}</div>
                         </div>
                         <div class="goods-tag">
                             <div class="label">品牌</div>
-                            <div class="value">tcl</div>
+                            <div class="value">{{detailData.goodsTag || '无'}}</div>
                         </div>
                     </div>
                     <div class="goods-li is-flex">
@@ -26,14 +26,14 @@
                     <div class="goods-li">
                         <div class="goods-tag">
                             <div class="label">重要程度</div>
-                            <van-rate v-model="rate" />
+                            <van-rate v-model="detailData.rate || 0" />
                         </div>
 
                     </div>
                     <div class="goods-li">
                         <div class="goods-tag">
                             <div class="label">备注</div>
-                            <div class="value">这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊这里是备注啊</div>
+                            <div class="value">{{detailData.remark || '无备注'}}</div>
                         </div>
                     </div>
                 </div>
@@ -49,23 +49,34 @@
 </template>
 
 <script>
+    import { getGoodsDetail } from "@/api/goodsApis";
+    import {REQUEST_SUCCESS} from "@/constant";
   export default {
     name: "GoodsDetail",
     data () {
       return {
-        title: '遥控器',
-        rate: 3
+        detailData: {}
       }
     },
     methods: {
       returnRoute () {
         this.$router.go(-1)
       },
+      async getGoodsDetail () {
+        try {
+          const { code, data } = await getGoodsDetail({id: this.$route.query.id})
+          if (code === REQUEST_SUCCESS) {
+            this.detailData = data || {}
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
       editGoods () {
         this.$router.push({
           name: 'goodsAdd',
           query: {
-            isEdit: true
+            id: this.$route.query.id
           }
         })
       },
@@ -76,6 +87,9 @@
           theme: 'round-button',
         })
       }
+    },
+    mounted() {
+      this.getGoodsDetail()
     }
   }
 </script>

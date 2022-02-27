@@ -12,7 +12,7 @@
                     :rules="[{ validator: goodsValidate, message: '不能包含特殊字符' }]"
             />
             <van-field
-                    v-model="formData.count"
+                    v-model="formData.goodsCount"
                     input-align="right"
                     type="digit"
                     name="digitValidate"
@@ -40,6 +40,15 @@
                     label="分类"
                     placeholder="选择"
                     @click="showRoomPop('categoryLists')"
+            />
+            <van-field
+                    v-model="formData.position"
+                    input-align="right"
+                    name="goodsValidate"
+                    required
+                    placeholder="请输入"
+                    label="存放位置"
+                    :rules="[{ validator: goodsValidate, message: '不能包含特殊字符' }]"
             />
             <van-field
                     v-model="formData.goodsTag"
@@ -74,7 +83,7 @@
                     show-word-limit
             />
             <div class="submit-btn">
-                <van-button round block type="info" native-type="submit">{{$route.query.isEdit ? '修改' : '提交'}}</van-button>
+                <van-button round block type="info" native-type="submit" @click="submit">{{$route.query.id ? '修改' : '提交'}}</van-button>
             </div>
 
         </van-form>
@@ -94,16 +103,20 @@
     import regExp from '@/utils/formRules'
     import { getRoomLists, getCategoriesList } from "@/api/optionsApis";
     import {REQUEST_SUCCESS} from "@/constant";
+    import { addGoods } from "@/api/goodsApis";
+    import { Toast } from 'vant';
+
   export default {
     name: "GoodsDetail",
     data () {
       return {
-        title: this.$route.query.isEdit ? '编辑物品' : '新增物品',
+        title: this.$route.query.id ? '编辑物品' : '新增物品',
         formData: {
           goodsName: '',
-          count: 1,
+          goodsCount: 1,
           room: '',
           category: '',
+          position: '',
           goodsTag: '',
           rate: 3,
           photo: [],
@@ -127,7 +140,7 @@
         return regExp.isInteger.test(val)
       },
       returnRoute () {
-        if (this.$route.query.isEdit) {
+        if (this.$route.query.id) {
           this.$router.go(-1)
         } else {
           this.$router.push(
@@ -181,6 +194,33 @@
       },
       onCancel () {
         this.popVisible = false
+      },
+      // 保存或修改
+      submit () {
+        let params = {
+          ...this.formData,
+          roomCode: this.submitData.room,
+          categoryCode: this.submitData.category
+        }
+        if (this.$route.query.id) {
+          params.id = this.$route.query.id
+          this.submitEditGoods(params)
+        } else {
+          this.submitAddGoods(params)
+        }
+      },
+      async submitAddGoods (params) {
+        try {
+          const { code } = await addGoods(params)
+          if (code === REQUEST_SUCCESS) {
+            Toast('添加物品成功！')
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      submitEditGoods () {
+
       },
       init () {
         this.getRoomList()

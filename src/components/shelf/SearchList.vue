@@ -19,6 +19,7 @@
 <script>
   import { getGoodsLists } from '@/api/goodsApis'
   import {REQUEST_SUCCESS} from "@/constant";
+  import { debounce } from '@/utils/tools'
 
   export default {
     name: "SearchList",
@@ -36,10 +37,10 @@
       }
     },
     watch: {
-      searchValue: function (val) {
-        // TODO 防抖
+      searchValue: debounce(function (val) {
+        // 防抖
         this.getSearchLists(val)
-      }
+      }, 300)
     },
     mounted() {
       this.getSearchLists()
@@ -88,7 +89,7 @@
           {
             name: 'goodsDetail',
             query: {
-              name: item.name || '0'
+              id: item.id
             }
           }
         )

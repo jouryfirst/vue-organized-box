@@ -11,7 +11,7 @@ const http = axios.create({
 })
 
 http.interceptors.response.use(response => {
-  console.log('response', response)
+  // console.log('response', response)
   if (/.*\.json$/.test(response.config.url)) {
     return response
   }
