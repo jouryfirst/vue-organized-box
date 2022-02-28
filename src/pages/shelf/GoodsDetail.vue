@@ -26,7 +26,7 @@
                     <div class="goods-li">
                         <div class="goods-tag">
                             <div class="label">重要程度</div>
-                            <van-rate v-model="detailData.rate || 0" />
+                            <van-rate v-model="detailData.rate" />
                         </div>
 
                     </div>

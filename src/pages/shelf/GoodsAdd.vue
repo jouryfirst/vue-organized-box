@@ -103,7 +103,7 @@
     import regExp from '@/utils/formRules'
     import { getRoomLists, getCategoriesList } from "@/api/optionsApis";
     import {REQUEST_SUCCESS} from "@/constant";
-    import { addGoods } from "@/api/goodsApis";
+    import { addGoods, getGoodsDetail } from "@/api/goodsApis";
     import { Toast } from 'vant';
 
   export default {
@@ -148,6 +148,16 @@
               name: 'Shelf'
             }
           )
+        }
+      },
+      async getGoodsDetail () {
+        try {
+          const { code, data } = await getGoodsDetail({id: this.$route.query.id})
+          if (code === REQUEST_SUCCESS) {
+            this.formData = data || {}
+          }
+        } catch (e) {
+          console.log(e)
         }
       },
       async getRoomList () {
@@ -229,6 +239,9 @@
     },
     mounted() {
       this.init()
+      if (this.$route.query.id) {
+        this.getGoodsDetail()
+      }
     }
   }
 </script>
