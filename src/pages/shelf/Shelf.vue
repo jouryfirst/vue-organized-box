@@ -18,10 +18,10 @@
                     :name="item.code"></van-tab>
         </van-tabs>
         <van-dropdown-menu>
-            <van-dropdown-item v-model="sortType" :options="sortOptions"></van-dropdown-item>
+            <van-dropdown-item v-model="sortType" :options="sortOptions" @change="changeSortType"></van-dropdown-item>
         </van-dropdown-menu>
         <div class="box-content">
-            <box-content v-if="sortType !== 2"></box-content>
+            <box-content v-if="sortType !== 0"></box-content>
             <not-classified v-else></not-classified>
         </div>
         <div class="add-good-btn" @click="addGoods">
@@ -35,6 +35,7 @@
   import NotClassified from "@/components/shelf/NotClassified";
   import SearchList from "@/components/shelf/SearchList";
   import {getRoomLists} from "@/api/optionsApis";
+  import { getGoodsLists } from '@/api/goodsApis';
   import {REQUEST_SUCCESS} from "@/constant";
 
   export default {
@@ -55,21 +56,22 @@
             code: 'all'
           }
         ],
-        sortType: 0,
+        sortType: 1,
         sortOptions: [
           {
             text: '按位置',
-            value: 0
-          },
-          {
-            text: '按分类',
             value: 1
           },
           {
-            text: '不分组',
+            text: '按分类',
             value: 2
+          },
+          {
+            text: '不分组',
+            value: 0
           }
-        ]
+        ],
+        lists: []
       }
     },
     methods: {
@@ -93,6 +95,9 @@
           console.log(e)
         }
       },
+      changeSortType (val) {
+        this.getGoodsLists(val)
+      },
       addGoods () {
         this.$router.push(
           {
@@ -103,6 +108,22 @@
             }
           }
         )
+      },
+      async getGoodsLists (val) {
+        try {
+          const params = {
+            sortType:val
+          }
+          if (this.activeTab !== 'all') {
+            params.roomCode = this.activeTab
+          }
+          const { code, data } = await getGoodsLists(params)
+          if (code === REQUEST_SUCCESS) {
+            this.lists = data.goodsList || []
+          }
+        } catch (e) {
+          console.log(e)
+        }
       },
       init () {
         this.getRoomTabs()
