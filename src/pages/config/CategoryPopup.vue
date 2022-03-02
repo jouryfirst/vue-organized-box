@@ -6,7 +6,7 @@
                     text="左滑可编辑或删除分类"
             />
             <div class="category-wrap">
-                <div class="category-li">
+                <div class="category-li" v-if="categoryLists.length">
                     <van-swipe-cell
                             class="category-swipe-cell"
                             v-for="(item, index) in categoryLists"
@@ -18,6 +18,7 @@
                         </template>
                     </van-swipe-cell>
                 </div>
+                <van-empty v-else description="当前暂无分类，请添加" />
                 <van-button type="primary" round block @click="addCategory">+新增分类</van-button>
             </div>
         </j-panel>

@@ -24,7 +24,8 @@ import { Icon,
   Popup,
   NoticeBar,
   SwipeCell,
-  Picker
+  Picker,
+  Empty
 } from 'vant'
 // import { Search } from 'vant'
 // import { Tab, Tabs } from 'vant'
@@ -68,3 +69,4 @@ Vue.use(Popup)
 Vue.use(NoticeBar)
 Vue.use(SwipeCell)
 Vue.use(Picker)
+Vue.use(Empty)

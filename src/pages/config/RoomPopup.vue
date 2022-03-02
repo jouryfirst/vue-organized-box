@@ -6,7 +6,7 @@
                 text="左滑可编辑或删除房间"
         />
             <div class="room-wrap">
-                <div class="room-li">
+                <div class="room-li" v-if="roomLists.length">
                     <van-swipe-cell
                             class="room-swipe-cell"
                             v-for="(item, index) in roomLists"
@@ -18,6 +18,7 @@
                         </template>
                     </van-swipe-cell>
                 </div>
+                <van-empty v-else description="当前暂无房间，请添加" />
                 <van-button type="primary" round block @click="addRoom">+新增房间</van-button>
             </div>
         </j-panel>
