@@ -96,7 +96,11 @@
       addGoods () {
         this.$router.push(
           {
-            name: 'goodsAdd'
+            name: 'goodsAdd',
+            query: {
+              roomName: this.tabLists.filter(item => item.code === this.activeTab)[0].roomName,
+              roomCode: this.activeTab
+            }
           }
         )
       },

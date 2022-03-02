@@ -21,7 +21,7 @@
                     :rules="[{ validator: digitValidate, message: '必须是正整数' }]"
             />
             <van-field
-                    v-model="formData.room"
+                    v-model="formData.roomName"
                     input-align="right"
                     name="picker"
                     is-link
@@ -32,7 +32,7 @@
                     @click="showRoomPop('roomLists')"
             />
             <van-field
-                    v-model="formData.category"
+                    v-model="formData.categoryName"
                     input-align="right"
                     is-link
                     readonly
@@ -59,11 +59,11 @@
                     :rules="[{ validator: goodsValidate, message: '不能包含特殊字符' }]"
             />
             <van-field
-                    name="rate"
+                    name="importantTag"
                     input-align="right"
                     label="重要程度">
                 <template #input>
-                    <van-rate v-model="formData.rate" />
+                    <van-rate v-model="formData.importantTag" />
                 </template>
             </van-field>
             <van-field name="photo" label="文件上传">
@@ -114,17 +114,17 @@
         formData: {
           goodsName: '',
           goodsCount: 1,
-          room: '',
-          category: '',
+          roomName: '',
+          categoryName: '',
           position: '',
           goodsTag: '',
-          rate: 3,
+          importantTag: 3,
           photo: [],
           remark: ''
         },
         submitData: {
-          room: '',
-          category: '',
+          roomCode: '',
+          categoryCode: '',
         },
         popVisible: false,
         roomLists: [],
@@ -155,6 +155,10 @@
           const { code, data } = await getGoodsDetail({id: this.$route.query.id})
           if (code === REQUEST_SUCCESS) {
             this.formData = data || {}
+            this.submitData = {
+              roomCode: data.roomCode || '',
+              categoryCode: data.categoryCode || ''
+            }
           }
         } catch (e) {
           console.log(e)
@@ -168,7 +172,8 @@
               return {
                 text: item.roomName,
                 code: item.code,
-                type: 'room'
+                type: 'roomName',
+                codeType: 'roomCode'
               }
             }) || []
           }
@@ -184,7 +189,8 @@
               return {
                 text: item.categoryName,
                 code: item.code,
-                type: 'category'
+                type: 'categoryName',
+                codeType: 'categoryCode'
               }
             }) || []
           }
@@ -199,7 +205,7 @@
       confirmPicker (value) {
         // 奇葩的vant，回显和值是分开的
         this.formData[value.type] = value.text
-        this.submitData[value.type] = value.code
+        this.submitData[value.codeType] = value.code
         this.popVisible = false
       },
       onCancel () {
@@ -209,8 +215,7 @@
       submit () {
         let params = {
           ...this.formData,
-          roomCode: this.submitData.room,
-          categoryCode: this.submitData.category
+          ...this.submitData
         }
         if (this.$route.query.id) {
           params.id = this.$route.query.id
@@ -239,6 +244,10 @@
     },
     mounted() {
       this.init()
+      if (this.$route.query.roomCode !== 'all') {
+        this.formData.roomName = this.$route.query.roomName
+        this.submitData.roomCode = this.$route.query.roomCode
+      }
       if (this.$route.query.id) {
         this.getGoodsDetail()
       }

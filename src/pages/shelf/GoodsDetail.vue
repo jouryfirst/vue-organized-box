@@ -16,17 +16,17 @@
                     <div class="goods-li is-flex">
                         <div class="goods-tag">
                             <div class="label">房间</div>
-                            <div class="value">客厅</div>
+                            <div class="value">{{detailData.roomName || '--'}}</div>
                         </div>
                         <div class="goods-tag">
                             <div class="label">分类</div>
-                            <div class="value">电子产品</div>
+                            <div class="value">{{detailData.categoryName || '--'}}</div>
                         </div>
                     </div>
                     <div class="goods-li">
                         <div class="goods-tag">
                             <div class="label">重要程度</div>
-                            <van-rate v-model="detailData.rate" />
+                            <van-rate v-model="detailData.importantTag" readonly />
                         </div>
 
                     </div>
