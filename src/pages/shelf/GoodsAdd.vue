@@ -8,6 +8,7 @@
                     name="goodsValidate"
                     required
                     placeholder="请输入"
+                    :readonly="$route.query.id"
                     label="物品名称"
                     :rules="[{ validator: goodsValidate, message: '不能包含特殊字符' }]"
             />
@@ -103,7 +104,7 @@
     import regExp from '@/utils/formRules'
     import { getRoomLists, getCategoriesList } from "@/api/optionsApis";
     import {REQUEST_SUCCESS} from "@/constant";
-    import { addGoods, getGoodsDetail } from "@/api/goodsApis";
+    import { addGoods, editGoods, getGoodsDetail } from "@/api/goodsApis";
     import { Toast } from 'vant';
 
   export default {
@@ -234,8 +235,15 @@
           console.log(e)
         }
       },
-      submitEditGoods () {
-
+      async submitEditGoods (params) {
+        try {
+          const { code } = await editGoods(params)
+          if (code === REQUEST_SUCCESS) {
+            Toast('修改物品成功！')
+          }
+        } catch (e) {
+          console.log(e)
+        }
       },
       init () {
         this.getRoomList()
