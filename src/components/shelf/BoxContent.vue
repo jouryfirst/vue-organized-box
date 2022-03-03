@@ -22,30 +22,14 @@
 <script>
   export default {
     name: "BoxContent",
+    props: {
+      boxLists: {
+        type: Array,
+        default: () => []
+      }
+    },
     data () {
       return {
-        boxLists: [
-          {
-            label: '电视柜',
-            count: 30
-          },
-          {
-            label: '茶几',
-            count: 30
-          },
-          {
-            label: '书桌',
-            count: 30
-          },
-          {
-            label: '沙发',
-            count: 30
-          },
-          {
-            label: '天花板',
-            count: 30
-          }
-        ]
       }
     },
     methods: {

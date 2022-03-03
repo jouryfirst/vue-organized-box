@@ -21,7 +21,7 @@
             <van-dropdown-item v-model="sortType" :options="sortOptions" @change="changeSortType"></van-dropdown-item>
         </van-dropdown-menu>
         <div class="box-content">
-            <box-content v-if="sortType !== 0"></box-content>
+            <box-content v-if="sortType !== 0" :boxLists="goodsList"></box-content>
             <not-classified v-else></not-classified>
         </div>
         <div class="add-good-btn" @click="addGoods">
@@ -71,7 +71,7 @@
             value: 0
           }
         ],
-        lists: []
+        goodsList: []
       }
     },
     methods: {
@@ -109,7 +109,7 @@
           }
         )
       },
-      async getGoodsLists (val) {
+      async getGoodsLists (val = 1) {
         try {
           const params = {
             sortType:val
@@ -119,7 +119,7 @@
           }
           const { code, data } = await getGoodsLists(params)
           if (code === REQUEST_SUCCESS) {
-            this.lists = data.goodsList || []
+            this.goodsList = val === 0 ? data.goodsList : data
           }
         } catch (e) {
           console.log(e)
@@ -127,9 +127,10 @@
       },
       init () {
         this.getRoomTabs()
+        this.getGoodsLists()
       }
     },
-    mounted() {
+    created() {
       this.init()
     }
   }
