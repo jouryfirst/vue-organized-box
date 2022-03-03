@@ -8,7 +8,7 @@
                     name="goodsValidate"
                     required
                     placeholder="请输入"
-                    :readonly="$route.query.id"
+                    :readonly="!!$route.query.id"
                     label="物品名称"
                     :rules="[{ validator: goodsValidate, message: '不能包含特殊字符' }]"
             />
@@ -252,7 +252,7 @@
     },
     mounted() {
       this.init()
-      if (this.$route.query.roomCode !== 'all') {
+      if (this.$route.query.roomCode !== '0') {
         this.formData.roomName = this.$route.query.roomName
         this.submitData.roomCode = this.$route.query.roomCode
       }

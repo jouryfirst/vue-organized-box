@@ -16,6 +16,7 @@
             </svg>
 <!--            <i class="iconfont" :class="`icon&#45;&#45;box${Math.floor(Math.random() * 6)}`"></i>-->
         </div>
+        <van-empty class="box-content-empty" v-if="!boxLists.length" description="暂无数据" />
     </div>
 </template>
 
@@ -80,6 +81,8 @@
                 overflow: hidden;
             }
         }
-
+        .box-content-empty {
+            width: 100%;
+        }
     }
 </style>

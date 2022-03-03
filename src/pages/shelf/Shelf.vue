@@ -10,7 +10,7 @@
             ></van-search>
         </div>
         <search-list ref="searchList" class="search-list" :search-value="searchValue" v-if="searchListVis"></search-list>
-        <van-tabs v-model="activeTab">
+        <van-tabs v-model="activeTab" @change="changeTabs">
             <van-tab
                     v-for="(item, index) in tabLists"
                     :key="index"
@@ -49,11 +49,11 @@
       return {
         searchValue: '',
         searchListVis: false,
-        activeTab: 'all',
+        activeTab: '0',
         tabLists: [
           {
             roomName: '全部',
-            code: 'all'
+            code: '0'
           }
         ],
         sortType: 1,
@@ -88,7 +88,7 @@
             this.tabLists = data || []
             this.tabLists.unshift({
               roomName: '全部',
-              code: 'all'
+              code: '0'
             })
           }
         } catch (e) {
@@ -97,6 +97,9 @@
       },
       changeSortType (val) {
         this.getGoodsLists(val)
+      },
+      changeTabs () {
+        this.getGoodsLists(this.sortType)
       },
       addGoods () {
         this.$router.push(
@@ -114,7 +117,7 @@
           const params = {
             sortType:val
           }
-          if (this.activeTab !== 'all') {
+          if (this.activeTab !== '0') {
             params.roomCode = this.activeTab
           }
           const { code, data } = await getGoodsLists(params)

@@ -56,15 +56,13 @@
           }
         )
       },
-      async getCategoryLists () {
-        try {
-          const params = {
-
-          }
-        } catch (e) {
-          console.log(e)
-        }
-      },
+      // async getCategoryLists () {
+      //   try {
+      //
+      //   } catch (e) {
+      //     console.log(e)
+      //   }
+      // },
       goGoodsDetail (item) {
         this.$router.push(
           {
