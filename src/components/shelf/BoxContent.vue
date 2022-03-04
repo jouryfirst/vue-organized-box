@@ -38,7 +38,8 @@
         this.$router.push({
           name: 'BoxDetail',
           query: {
-            boxName: item.label
+            boxName: item.label,
+
           }
         })
       }

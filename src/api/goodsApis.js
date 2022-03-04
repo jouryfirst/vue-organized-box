@@ -14,3 +14,6 @@ export const getGoodsLists = (params) => http.post(`${BASE_URL}${CURRENT_URL}/ge
 
 // 获取物品详情
 export const getGoodsDetail = (params) => http.get(`${BASE_URL}${CURRENT_URL}/getGoodsDetail?` + qs.stringify(params))
+
+// 放物品入回收站
+export const deleteGoods = (params) => http.get(`${BASE_URL}${CURRENT_URL}/deleteGoods?` + qs.stringify(params))

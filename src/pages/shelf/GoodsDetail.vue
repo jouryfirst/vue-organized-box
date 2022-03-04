@@ -49,8 +49,9 @@
 </template>
 
 <script>
-    import { getGoodsDetail } from "@/api/goodsApis";
+    import { getGoodsDetail, deleteGoods } from "@/api/goodsApis";
     import {REQUEST_SUCCESS} from "@/constant";
+    import { Toast } from 'vant';
   export default {
     name: "GoodsDetail",
     data () {
@@ -85,7 +86,20 @@
           title: '注意！',
           message: '要将该物品放入回收站吗？',
           theme: 'round-button',
+        }).then(() => {
+            this._deleteGoods()
         })
+      },
+      async _deleteGoods () {
+        try {
+          const { code } = await deleteGoods({id: this.$route.query.id})
+          if (code === REQUEST_SUCCESS) {
+            Toast('删除物品成功！')
+            this.returnRoute()
+          }
+        } catch (e) {
+          console.log(e)
+        }
       }
     },
     mounted() {

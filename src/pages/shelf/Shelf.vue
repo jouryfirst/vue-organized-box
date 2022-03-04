@@ -21,7 +21,25 @@
             <van-dropdown-item v-model="sortType" :options="sortOptions" @change="changeSortType"></van-dropdown-item>
         </van-dropdown-menu>
         <div class="box-content">
-            <box-content v-if="sortType !== 0" :boxLists="goodsList"></box-content>
+            <div class="box-content-container is-flex" v-if="sortType !== 0" >
+                <div
+                        class="box-wrapper"
+                        v-for="(item, index) in goodsList"
+                        :key="index"
+                        @click="showBoxDetail(item)"
+                >
+                    <div class="label">{{item.label}}</div>
+                    <div class="num overflow">
+                        <span>{{item.count}}</span>
+                        <span>个物品</span>
+                    </div>
+                    <svg class="icon" aria-hidden="true">
+                        <use :xlink:href="`#icon--box${Math.floor(Math.random() * 5 + 1)}`"></use>
+                    </svg>
+                    <!--            <i class="iconfont" :class="`icon&#45;&#45;box${Math.floor(Math.random() * 6)}`"></i>-->
+                </div>
+                <van-empty class="box-content-empty" v-if="!goodsList.length" description="暂无数据" />
+            </div>
             <not-classified v-else></not-classified>
         </div>
         <div class="add-good-btn" @click="addGoods">
@@ -31,7 +49,6 @@
 </template>
 
 <script>
-  import BoxContent from "@/components/shelf/BoxContent";
   import NotClassified from "@/components/shelf/NotClassified";
   import SearchList from "@/components/shelf/SearchList";
   import {getRoomLists} from "@/api/optionsApis";
@@ -41,7 +58,6 @@
   export default {
     name: "Shelf",
     components: {
-      BoxContent,
       NotClassified,
       SearchList
     },
@@ -128,6 +144,16 @@
           console.log(e)
         }
       },
+      showBoxDetail(item) {
+        this.$router.push({
+          name: 'BoxDetail',
+          query: {
+            boxName: item.label,
+            sortType: this.sortType,
+            roomCode: this.activeTab
+          }
+        })
+      },
       init () {
         this.getRoomTabs()
         this.getGoodsLists()
@@ -151,6 +177,44 @@
         }
         .box-content {
             height: calc(100vh - 12rem);
+            .box-content-container {
+                height: 100%;
+                background-color: #fff;
+                flex-wrap: wrap;
+                align-content: flex-start;
+                padding: 40px;
+                .box-wrapper {
+                    cursor: pointer;
+                    user-select: none;
+                    width: 30%;
+                    text-align: center;
+                    height: 300px;
+                    background-color: #fff;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 0 15px 2px rgba(0,0,0,0.1);
+                    &:nth-child(3n+1) {
+                        margin: 0 2.5% 30px 0;
+                    }
+                    &:nth-child(3n+2) {
+                        margin: 0 2.5% 30px 2.5%;
+                    }
+                    &:nth-child(3n+3) {
+                        margin: 0 0 30px 2.5%;
+                    }
+                    .icon {
+                        margin-top: 20px;
+                        width: 110px;
+                        height: 110px;
+                        vertical-align: -0.15em;
+                        fill: currentColor;
+                        overflow: hidden;
+                    }
+                }
+                .box-content-empty {
+                    width: 100%;
+                }
+            }
         }
         .add-good-btn {
             position: fixed;

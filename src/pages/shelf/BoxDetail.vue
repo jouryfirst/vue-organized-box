@@ -1,20 +1,16 @@
 <template>
     <div class="box-detail-container basic-container">
         <j-panel class="box-detail-panel" :title="title" @return="returnRoute">
-            <van-sidebar v-model="activeTab">
-                <van-sidebar-item title="全部"></van-sidebar-item>
-                <van-sidebar-item title="全部"></van-sidebar-item>
-                <van-sidebar-item title="全部"></van-sidebar-item>
-            </van-sidebar>
             <van-list
                     class="box-detail-lists"
+                    :finished="finished"
                     v-model="loading">
                 <van-cell
                         v-for="(item, index) in boxLists"
                         @click="goGoodsDetail(item)"
                         :key="index"
-                        :title="item.name"
-                        :label="item.location"
+                        :title="`${item.goodsName} （${item.goodsCount}个）`"
+                        :label="item.position"
                 ></van-cell>
             </van-list>
         </j-panel>
@@ -22,33 +18,29 @@
 </template>
 
 <script>
+  import { getGoodsLists } from "@/api/goodsApis";
+  import { REQUEST_SUCCESS } from "@/constant";
   export default {
     name: "BoxDetail",
     data () {
       return {
         title: '',
-        activeTab: 0,
         loading: false,
-        boxLists: [
-          {
-            name: '遥控器',
-            location: '客厅'
-          },
-          {
-            name: '遥控器',
-            location: '客厅'
-          },
-          {
-            name: '遥控器',
-            location: '客厅'
-          }
-        ]
+        finished: false,
+        boxLists: []
       }
+    },
+    created() {
+      this.init()
     },
     mounted() {
       this.title = this.$route.query && this.$route.query.boxName
     },
     methods: {
+      init () {
+        const { roomCode, boxName } = this.$route.query
+        this.getGoodsLists(+roomCode, boxName)
+      },
       returnRoute () {
         this.$router.push(
           {
@@ -56,19 +48,29 @@
           }
         )
       },
-      // async getCategoryLists () {
-      //   try {
-      //
-      //   } catch (e) {
-      //     console.log(e)
-      //   }
-      // },
+      async getGoodsLists (roomCode, position) {
+        try {
+          this.loading = true
+          const params = {
+            roomCode,
+            position
+          }
+          const { code, data } = await getGoodsLists(params)
+          this.loading = false
+          this.finished = true
+          if (code === REQUEST_SUCCESS) {
+            this.boxLists = data.goodsList || []
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
       goGoodsDetail (item) {
         this.$router.push(
           {
             name: 'goodsDetail',
             query: {
-              name: item.name
+              id: item.id
             }
           }
         )
