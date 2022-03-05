@@ -9,15 +9,41 @@
 
 <script>
   import {echartsMixins} from "@/utils/mixins/echartsMixins";
+  import { getGoodsLists } from '@/api/goodsApis';
+  import {REQUEST_SUCCESS} from "@/constant";
 
   export default {
     name: "CategoryChart",
     mixins: [echartsMixins],
     methods: {
-      getChartData() {
-        this.drawChart()
+      async getChartData() {
+        try {
+          const params= {
+            pageSize: 1000,
+            sortType: 2
+          }
+          const { code, data } = await getGoodsLists(params)
+          if (code === REQUEST_SUCCESS) {
+            if (data && data.length) {
+              const newData = this.formateData(data)
+              this.drawChart(newData)
+            } else {
+              this.charts && this.charts.clear()
+            }
+          }
+        } catch (e) {
+          console.log(e)
+        }
       },
-      drawChart() {
+      formateData (data) {
+        return data.map(item => {
+          return {
+            value: item.count,
+            name: item.label
+          }
+        })
+      },
+      drawChart(data) {
         this.charts && this.charts.clear()
         this.charts = this.$echarts.init(this.$refs.categoryChart)
         const chartWidth = this.charts.getWidth()
@@ -70,18 +96,15 @@
                   labelLinePoints: points
                 };
               },
-              data: [
-                {value: 1048, name: '电子产品'},
-                {value: 735, name: '说明书'},
-                {value: 580, name: '数据线'},
-                {value: 484, name: '化妆品'},
-                {value: 300, name: '玩具'}
-              ]
+              data: data
             }
           ]
         }
         this.charts.setOption(options)
       }
+    },
+    created() {
+      this.getChartData()
     }
   }
 </script>

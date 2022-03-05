@@ -1,15 +1,15 @@
 <template>
     <div class="statistics-base-info statistics-box is-flex">
         <div class="base-info-wrapper">
-            <div class="num overflow">{{infoData.goodsNum}}</div>
+            <div class="num overflow">{{infoData.goodsCount}}</div>
             <div class="label">物品数量</div>
         </div>
         <div class="base-info-wrapper">
-            <div class="num overflow">{{infoData.roomNum}}</div>
+            <div class="num overflow">{{infoData.roomCount}}</div>
             <div class="label">房间数量</div>
         </div>
         <div class="base-info-wrapper">
-            <div class="num overflow">{{infoData.categoryNum}}</div>
+            <div class="num overflow">{{infoData.categoryCount}}</div>
             <div class="label">物品种类</div>
         </div>
     </div>
@@ -24,9 +24,9 @@
     data () {
       return {
         infoData: {
-          goodsNum: 0,
-          roomNum: 0,
-          categoryNum: 0
+          goodsCount: 0,
+          roomCount: 0,
+          categoryCount: 0
         }
       }
     },
@@ -36,9 +36,9 @@
           const { code, data } = await getStatisticsInfo()
           if (code === REQUEST_SUCCESS) {
             this.infoData = data || {
-              goodsNum: 0,
-              roomNum: 0,
-              categoryNum: 0
+              goodsCount: 0,
+              roomCount: 0,
+              categoryCount: 0
             }
           }
         } catch (e) {
