@@ -8,8 +8,9 @@
 </template>
 
 <script>
+    import { getGoodsByDate } from '@/api/statisticsApis'
   import {echartsMixins} from "@/utils/mixins/echartsMixins";
-
+    import {REQUEST_SUCCESS} from "@/constant";
   export default {
     name: "CountTrend",
     mixins: [echartsMixins],
