@@ -15,10 +15,33 @@
     name: "CountTrend",
     mixins: [echartsMixins],
     methods: {
-      getChartData () {
-        this.drawChart()
+      async getChartData () {
+        try {
+          const { code, data } = await getGoodsByDate()
+          if (code === REQUEST_SUCCESS) {
+            if (data && data.length) {
+              const newData = this.formateData(data)
+              this.drawChart(newData)
+            } else {
+              this.charts && this.charts.clear()
+            }
+          }
+        } catch (e) {
+          console.log(e)
+        }
       },
-      drawChart() {
+      formateData (data) {
+        const newData = {
+          dataX: [],
+          dataY: []
+        }
+        data.forEach(item => {
+          newData.dataX.push(item.date)
+          newData.dataY.push(item.count)
+        })
+        return newData
+      },
+      drawChart(data) {
         this.charts && this.charts.clear()
         this.charts = this.$echarts.init(this.$refs.countTrendChart)
         const options = {
@@ -31,7 +54,7 @@
           },
           xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: data.dataX
           },
           yAxis: {
             type: 'value',
@@ -39,7 +62,7 @@
           },
           series: [
             {
-              data: [0, 10, 20, 40, 70, 147, 260],
+              data: data.dataY,
               type: 'line'
             }
           ]
